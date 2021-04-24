@@ -79,3 +79,38 @@ def uppercaseHtmlTags():
                 pass
     print(text)
 
+
+def mysteriousOrdering(S, unorderedA):
+    # Let A be an ordered sequence of numbers, eg. A = {1, 0, 20, 3}
+    # For a sequence A we can define another ordered sequence S_A; where for each A[i], each value S[i] equals the
+    # count of values that are to the left or A[i] and are smaller or equal to A[i]. In our example S = {0, 0, 2, 2}.
+    #
+    # Your task is to order the input sequence according to S. Write the function mysterious_ordering, its input is
+    # sequence S and unordered sequence A, its output is A reordered according to S.
+    # e.g. mysterious_ordering(S = {0, 0, 2, 2}, unordered_A = {0, 3, 20, 1}) -> {1, 0, 20, 3}
+    n = len(unorderedA)
+    unorderedA.sort()
+    A = []
+
+    for i in range(n):
+        smallerValues = S[n - 1 - i]
+        A = [unorderedA[smallerValues]] + A
+        unorderedA.remove(unorderedA[smallerValues])
+    return A
+
+
+def proteinChains(s1, s2):
+    # The protein chain can be written as a word consisting of capital letters A to T,
+    # for example "BDDFPQPPRRAGGHPOPDKJKPEQAAER"
+    # Given a protein chain, geneticists can swap any two amino acids in it with places, e.g. the chain "AABBCC"
+    # can be swapped with "ACBBCA"
+    # Your task is to write a function that will check whether it is possible to obtain protein chain s2 from protein
+    # chain s1. The actual protein chains consist of about 10^8 amino acids, care must be taken to ensure good
+    # performance of the algorithm.
+    # Algorithm Complexity = O(n)
+    uniqueLetters = set(s2)
+
+    for elem in uniqueLetters:
+        if s2.count(elem) != s1.count(elem):
+            return False
+    return True
